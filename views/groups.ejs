@@ -1,0 +1,42 @@
+<%- include("parts/header") %>
+    <%- include("parts/nav") %>
+        <div class="container text-center">
+            <div>
+                <a href="/groups/create" class="btn btn-primary">Create New</a>
+            </div>
+            <br>
+            <% if(groups && groups.length> 0) { %>
+                <h4 class="mb-3">Groups</h4>
+                <div class="cards_landscape_wrap-2">
+                    <div class="row justify-content-center">
+                        <% for(let group of groups) {%>
+                            <div class="col-8 col-sm-6 col-md-3 col-lg-3 my-3">
+                                <div class="card-flyer" onclick="location.href = '/groups/<%= group._id %>'"
+                                    style="margin:0">
+                                    <div class="text-box">
+                                        <div class="image-box">
+                                            <img src="/imgs/default-group-image.png" alt="Group image" />
+                                        </div>
+                                        <div class="text-container">
+                                            <h5>
+                                                <%= group.name %>
+                                            </h5>
+                                            <form method="POST">
+                                                <input type="hidden" name="groupId" value="<%= group._id %>">
+                                                <div class="card-footer">
+                                                    <a href="/groups/<%= group._id %>"
+                                                        class="btn btn-primary ">Enter</a>
+                                                    <input type="submit" value="Delete" formaction="/groups/delete"
+                                                        class="btn btn-danger ">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+                <% } %>
+        </div>
+        <%- include("parts/footer") %>

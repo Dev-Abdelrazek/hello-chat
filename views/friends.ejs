@@ -1,0 +1,22 @@
+<%- include("parts/header") %>
+    <%- include("parts/nav") %>
+        <div class="container text-center">
+            <h3>Friends</h3>
+            <div class="row">
+                <% for (let friend of friends) {%>
+                    <div class="col col-12 col-md-6 col-lg-4">
+                        <div class="card" style="width: 15rem;">
+                            <img src="/<%= friend.img %>" class="card-img-top" alt="user Image">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="/profile/<%= friend.id %>">
+                                        <%= friend.name %>
+                                    </a></h5>
+                                <a href="/chat/<%= friend.chatId %>" class="btn btn-success">Chat</a>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+            </div>
+        </div>
+
+        <%- include("parts/footer") %>

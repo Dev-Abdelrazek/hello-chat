@@ -1,0 +1,53 @@
+<%- include('parts/header') %>
+    <%- include("parts/nav") %>
+        <div class="container text-center">
+            <h3 class="mb-4">Signup</h3>
+            <form action="/signup" method="POST">
+                <input type="text" name="username" placeholder="Username" required autofocus minlength="2"
+                    class="form-control d-inline-block w-50 mb-2">
+                <% let error=validationErrors.find(err=> err.param ==='username')%>
+                    <% if(error) {%>
+                        <div class="custom-alert custom-alert-danger d-inline-block w-50">
+                            <%= error.msg %>
+                        </div>
+                        <% } %>
+                            <input type="email" name="email" placeholder="Email" required
+                                class="form-control d-inline-block w-50 mb-2">
+                            <% error=validationErrors.find(err=> err.param === "email") %>
+                                <% if(error) {%>
+                                    <div class="custom-alert custom-alert-danger d-inline-block w-50">
+                                        <%= error.msg %>
+                                    </div>
+                                    <% } %>
+                                        <input type="password" name="password" placeholder="Password" required
+                                            minlength="6" class="form-control d-inline-block w-50 mb-2">
+                                        <% error=validationErrors.find(err=> err.param === "password") %>
+                                            <% if(error) {%>
+                                                <div class="custom-alert custom-alert-danger d-inline-block w-50">
+                                                    <%= error.msg %>
+                                                </div>
+                                                <% } %>
+                                                    <input type="password" name="confirmPassword"
+                                                        placeholder="Confirm Password" required minlength="6"
+                                                        class="form-control d-inline-block w-50 mb-2">
+                                                    <% error=validationErrors.find(err=>err.param === "confirmPassword")
+                                                        %>
+                                                        <% if(error) {%>
+                                                            <div
+                                                                class="custom-alert custom-alert-danger d-inline-block w-50">
+                                                                <%= error.msg %>
+                                                            </div>
+                                                            <% } %>
+                                                                <input type="submit" value="Sign Up"
+                                                                    class="form-control btn btn-primary d-inline-block w-50 mb-2">
+            </form>
+            <% if(signupError) {%>
+                <div class="custom-alert custom-alert-danger d-inline-block w-50">
+                    <%= signupError %>
+                </div>
+                <% } %>
+                    <div class="my-2">
+                        Already have an account ? <a href="/login">Login</a>
+                    </div>
+        </div>
+        <%- include("parts/footer") %>

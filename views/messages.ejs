@@ -1,0 +1,73 @@
+<%- include("parts/header") %>
+    <%- include("parts/nav") %>
+        <div class="content-wrapper">
+            <div class="container">
+                <% if(friends.length==0) {%>
+                    <br>
+                    <div class="custom-alert custom-alert-danger w-50 text-center">There are no friends, You can add
+                        from
+                        <a href="/" class="alert-link">here</a><button class="close">&times;</button>
+                    </div>
+                    <% } %>
+                        <div class="row gutters">
+                            <div class="col-12">
+                                <div class="card m-0">
+                                    <div class="row no-gutters">
+                                        <div class="col-12">
+                                            <ul class="users">
+                                                <% for(let friend of friends) {%>
+                                                    <li class="person"
+                                                        onclick="location.href = '/chat/<%= friend.chatId %>'">
+                                                        <div class="user">
+                                                            <a href="/chat/<%= friend.chatId %>">
+                                                                <img src="/imgs/avatar.png" alt="user image">
+                                                                <!-- <span class="status online"></span> -->
+                                                            </a>
+                                                            <!-- For offline <span class="status offline"></span> -->
+                                                        </div>
+                                                        <p class="name-time">
+                                                            <a href="/chat/<%= friend.chatId %>" class="name link">
+                                                                <%= friend.name %>
+                                                            </a>
+                                                        </p>
+                                                        <% for (let msg of msgs) {%>
+                                                            <% if(friend.chatId==msg.chat._id) {%>
+                                                                <div class="msg-time">
+                                                                    <% if (msg.content.length> 30) { %>
+                                                                        <%= msg.content.substring(0, 29) + "..." ; %>
+                                                                            <% }else {%>
+                                                                                <%= msg.content %>
+                                                                                    <% } %>
+                                                                                        <a href="/chat/<%= friend.chatId %>"
+                                                                                            class="time link">
+                                                                                            <%= moment
+                                                                                                .unix(msg.timestamp/1000)
+                                                                                                .format(`h:mm A,`) %>
+                                                                                                <%= moment.unix(msg.timestamp
+                                                                                                    /1000).calendar(null,
+                                                                                                    { sameDay: '[Today]'
+                                                                                                    ,
+                                                                                                    nextDay: '[Tomorrow]'
+                                                                                                    , nextWeek: 'dddd' ,
+                                                                                                    lastDay: '[Yesterday]'
+                                                                                                    ,
+                                                                                                    lastWeek: '[Last] dddd'
+                                                                                                    ,
+                                                                                                    sameElse: 'DD/MM/YYYY'
+                                                                                                    }); %>
+                                                                                        </a>
+                                                                </div>
+                                                                <% } %>
+                                                                    <% } %>
+                                                    </li>
+                                                    <% } %>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+        </div>
+        </div>
+        <%- include("parts/footer") %>

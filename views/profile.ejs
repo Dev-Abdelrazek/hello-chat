@@ -1,0 +1,94 @@
+<%- include("parts/header") %>
+    <%- include("parts/nav") %>
+        <div class="profile-page">
+            <div class="page-header header-filter" data-parallax="true">
+            </div>
+            <div class="main main-raised">
+                <div class="profile-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 ml-auto mr-auto">
+                                <div class="profile">
+                                    <div class="avatar">
+                                        <img src="/imgs/avatar.png" alt="Circle Image"
+                                            class="img-raised rounded-circle img-fluid">
+                                    </div>
+                                    <div class="name">
+                                        <h2 class="title">
+                                            <%= username %>
+                                        </h2>
+                                        <h5 class="mb-3">
+                                            <%= email %>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <% if(!isOwn) {%>
+                                    <form method="POST" id="friends-form">
+                                        <input id="myId" type="hidden" name="myId" value="<%= myId %>">
+                                        <input id="myName" type="hidden" name="myName" value="<%= myName %>">
+                                        <input id="myImg" type="hidden" name="myImg" value="<%= myImg %>">
+                                        <input id="friendId" type="hidden" name="friendId" value="<%= friendId %>">
+                                        <input id="friendName" type="hidden" name="friendName" value="<%= username %>">
+                                        <input id="friendImg" type="hidden" name="friendImg" value="<%= userImage %>">
+                                        <div class="buttons text-center">
+                                            <% if(isFriends) {%>
+                                                <a class="btn btn-primary"
+                                                    href="/chat/<%= isFriends.chatId %> ">Chat</a>
+                                                <input type="submit" value="Unfriend" class="btn btn-danger"
+                                                    formaction="/friend/delete">
+                                                <% } else if(isRequestRecieved) { %>
+                                                    <input type="submit" value="Accept Request" class="btn btn-success"
+                                                        formaction="/friend/accept">
+                                                    <input type="submit" value="Reject" class="btn btn-danger"
+                                                        formaction="/friend/reject">
+                                                    <% } else if(isRequestSent) { %>
+                                                        <input type="submit" value="Cancel Request"
+                                                            class="btn btn-danger" formaction="/friend/cancel">
+                                                        <% } else { %>
+                                                            <input id="addBtn" type="submit" value="Add Friend"
+                                                                class="btn btn-primary">
+                                                            <% } %>
+                                        </div>
+                                    </form>
+                                    <% } %>
+                            </div>
+                        </div>
+                        <% if(isOwn && friends.length> 0) {%>
+                            <h4 class="d-flex justify-content-center mb-3">Friends</h4>
+                            <div class="cards_landscape_wrap-2">
+                                <div class="row justify-content-center">
+                                    <% for(let friend of friends) {%>
+                                        <div class="col-sm-6 col-md-3 col-lg-3 mx-3">
+                                            <div class="card-flyer my-3"
+                                                onclick="location.href = '/profile/<%= friend.id %>'">
+                                                <div class="text-box">
+                                                    <div class="image-box">
+                                                        <img src="/imgs/avatar.png" alt="" />
+                                                    </div>
+                                                    <div class="text-container">
+                                                        <h5>
+                                                            <%= friend.name %>
+                                                        </h5>
+                                                        <div class="card-footer">
+                                                            <a href="/chat/<%= friend.chatId %>"
+                                                                class="btn btn-primary ">Chat</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% } %>
+                                </div>
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/sockets/init.js"></script>
+        <% if(!isOwn && !isFriends && !isRequestRecieved && !isRequestSent) {%>
+            <script src="/js/sockets/friend.js"></script>
+            <% } %>
+                <%- include("parts/footer") %>

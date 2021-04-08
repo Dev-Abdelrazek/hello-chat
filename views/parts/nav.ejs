@@ -1,0 +1,80 @@
+<nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a href="/" class="navbar-brand"><i class="fa fa-wechat"></i>Hello<b>Chat</b></a>
+        <ul class="navbar-nav mx-auto">
+            <% if(isUser) {%>
+                <li class="nav-item <%= pageTitle === 'Home' ? 'active' : ''  %>">
+                    <a href="/" class="nav-item nav-link <%= pageTitle === 'Home' ? 'active' : ''  %>"><i
+                            class="fa fa-home"></i><span>Home</span></a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/groups" class="nav-item nav-link <%= pageTitle === 'Groups' ? 'active' : ''  %>"><i
+                            class="fa fa-users"></i><span>Groups</span></a>
+                </li>
+                <li class="nav-item p-t-05">
+                    <a class="nav-link <%= pageTitle === 'Messages' ? 'active' : ''  %>" href="/messages">
+                        <i class="fa fa-envelope">
+                            <!-- <span class="badge badge-danger">4</span> -->
+                        </i>
+                        Messages
+                    </a>
+                </li>
+                <input type="hidden" id="userId" value="<%= isUser %>">
+                <input type="hidden" id="username" value="<%= profileName %>">
+                <li class="nav-item p-t-05 dropdown ">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user-plus">
+                            <span id="requestsNumber"
+                                class="badge badge-danger <%= friendRequests.length === 0 ? 'd-none' :'' %>">
+                                <%= friendRequests.length %>
+                            </span>
+                        </i>
+                        Requests
+                    </a>
+                    <div id="friendRequests" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <% if(friendRequests.length===0) {%>
+                            <span class="dropdown-item">No Friend Requests</span>
+                            <% } %>
+                                <% for(let request of friendRequests) {%>
+                                    <a class="dropdown-item" href="/profile/<%= request.id %>">
+                                        <%= request.name %>
+                                    </a>
+                                    <% } %>
+                </li>
+                <!-- <li class="nav-item <%= pageTitle === 'Home' ? 'active' : ''  %>">
+                    <a href="/" class="nav-item nav-link <%= pageTitle === 'Home' ? 'active' : ''  %>"><i
+                            class="fa fa-search"></i>
+                        <span>Search</span>
+                    </a>
+                </li> -->
+                <% } else{ %>
+                    <li class="nav-item">
+                        <a href="/login" class="nav-item nav-link <%= pageTitle === 'Login' ? 'active' : ''  %>"><i
+                                class="fa fa-sign-in"></i><span>Login</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/signup" class="nav-item nav-link <%= pageTitle === 'Register' ? 'active' : ''  %>"><i
+                                class="fa fa-plus-circle"></i><span>Register</span></a>
+                    </li>
+                    <% } %>
+        </ul>
+        <% if(isUser) {%>
+            <div class="nav-item dropdown dropdown-profile">
+                <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action"><img
+                        src="/imgs/avatar.png" class="avatar" alt="Avatar">
+                    <%= profileName %><b class="caret"></b>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="/profile/<%= isUser %>" class="dropdown-item custom-padding">Profile</a>
+                    <!-- <a href="/profile/<%= isUser %>" class="dropdown-item"><i class="fa fa-user"></i> Profile</a> -->
+                    <div class="divider dropdown-divider"></div>
+                    <form action="/logout" method="POST">
+                        <input type="submit" value="Logout" class="logout-btn">
+                    </form>
+                </div>
+            </div>
+            <% } %>
+    </div>
+</nav>
+<br>

@@ -1,0 +1,112 @@
+<%- include('parts/header')%>
+    <%- include('parts/nav')%>
+        <!-- 
+                    <% for (let user of group.users) { %>
+                        <h4>
+                            <img src="/imgs/avatar.png" style="width: 50px; display: inline-block;">
+                            <a href="/profile/<%= user.id%>">
+                                <%= user.username%>
+                            </a>
+                        </h4>
+                        <% } %>
+            -->
+        <div class="container-fluid">
+            <input type="hidden" id="chatId" value="<%= group._id%>">
+            <div class="row justify-content-center h-100">
+                <div class="col-md-8 col-xl-6 chat">
+                    <div class="card card-chat">
+                        <div class="card-header msg_head">
+                            <div class="d-flex bd-highlight">
+                                <div class="img_cont">
+                                    <a href="/groups/<%= group._id%>">
+                                        <img src="/<%= group.image%>" class="user_img">
+                                    </a>
+                                </div>
+                                <div class="user_info" style="max-width: 50%;">
+                                    <span>
+                                        <a href="/groups/<%= group._id%>" class="pro-link">
+                                            <%= group.name%>
+                                        </a>
+                                    </span>
+                                    <div>
+                                        <% for (let user of group.users) { %>
+                                            <a href="/profile/<%= user._id %>" style="font-size: 1rem;"
+                                                class="pro-link">
+                                                <%= user.username %>
+                                            </a>
+                                            <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <span id="action_menu_btn"><i class="fa fa-ellipsis-v"></i></span>
+                            <div class="action_menu">
+                                <ul>
+                                    <a href="/groups" class="custom-link">
+                                        <li><i class="fa fa-users"></i> View groups</li>
+                                    </a>
+                                    <a href="/groups/" class="custom-link">
+                                        <li><i class="fa fa-ban"></i> Delete group</li>
+                                    </a>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="message-container" class="card-body msg_card_body">
+                            <% for (let message of messages) { %>
+                                <% if(message.sender._id==isUser) {%>
+                                    <div class="position-relative d-flex justify-content-end mb-4">
+                                        <div class="msg_cotainer_send">
+                                            <a href="/profile/<%= message.sender._id %>" class="pro-link d-block">
+                                                Me
+                                            </a>
+                                            <div class="msg-content">
+                                                <%= message.content %>
+                                            </div>
+                                        </div>
+                                        <span class="msg_time_send">
+                                            <%= moment.unix(message.timestamp /1000).format("h:mm A,"); %>
+                                                <%= moment.unix(message.timestamp /1000).calendar(null, {
+                                                    sameDay: '[Today]' , nextDay: '[Tomorrow]' , nextWeek: 'dddd' ,
+                                                    lastDay: '[Yesterday]' , lastWeek: '[Last] dddd' ,
+                                                    sameElse: 'DD/MM/YYYY' }); %>
+                                        </span>
+                                    </div>
+                                    <% }else {%>
+                                        <div class="position-relative d-flex justify-content-start mb-4">
+                                            <div class="msg_cotainer">
+                                                <a href="/profile/<%= message.sender._id %>" class="pro-link d-block">
+                                                    <%= message.sender.username %>
+                                                </a>
+                                                <%= message.content %>
+                                            </div>
+                                            <span class="msg_time">
+                                                <%= moment.unix(message.timestamp /1000).format("h:mm A,"); %>
+                                                    <%= moment.unix(message.timestamp /1000).calendar(null, {
+                                                        sameDay: '[Today]' , nextDay: '[Tomorrow]' , nextWeek: 'dddd' ,
+                                                        lastDay: '[Yesterday]' , lastWeek: '[Last] dddd' ,
+                                                        sameElse: 'DD/MM/YYYY' }); %>
+                                            </span>
+                                        </div>
+                                        <% } %>
+                                            <%} %>
+                        </div>
+                        <div class="card-footer">
+                            <div class="input-group">
+                                <textarea id="message" name="msg-input" class="form-control type_msg textarea-bd"
+                                    placeholder="Type your message..." maxlength="10000" autofocus></textarea>
+                                <div id="sendBtn" class="input-group-append  justify-content-end">
+                                    <span class="input-group-text send_btn bg-white"><i
+                                            class="fa fa-paper-plane"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/sockets/init.js"></script>
+        <script src="/js/sockets/group.js"></script>
+        <script>
+            msgContainer.scrollTop = msgContainer.scrollHeight;
+        </script>
+        <%- include('parts/footer') %>

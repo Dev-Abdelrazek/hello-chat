@@ -1,0 +1,77 @@
+<%- include("parts/header") %>
+    <%- include("parts/nav") %>
+        <div class="content-wrapper">
+            <div class="container">
+                <div class="row gutters">
+                    <div class="col-12">
+                        <div class="card m-0">
+                            <div class="row no-gutters">
+                                <div class="col-12">
+                                    <div class="users-container">
+                                        <div class="chat-search-box">
+                                            <form action="/" method="post">
+                                                <div class="input-group">
+                                                    <input name="email" type="email" class="form-control form-search"
+                                                        placeholder="Find users by email" required>
+                                                    <div class="input-group-btn">
+                                                        <button type="submit" class="btn btn-info">
+                                                            <i class="fa fa-search"></i>
+                                                        </button>
+                                                    </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <% if(searchError) {%>
+                                        <div class="custom-alert custom-alert-danger w-50 text-center">
+                                            <%= searchError.msg %><button class="close">&times;</button>
+                                        </div>
+                                        <% } %>
+                                            <% if(typeof userResult !=="undefined" ) {%>
+                                                <% if(userResult !==null ) {%>
+                                                    <ul class="users">
+                                                        <li class="person"
+                                                            onclick="location.href = '/profile/<%= userResult._id %>'">
+                                                            <div class="user">
+                                                                <a href="/profile/<%= userResult._id %>">
+                                                                    <img src="/imgs/avatar.png" alt="user image">
+                                                                </a>
+                                                            </div>
+                                                            <p class="name-time">
+                                                                <a href="/profile/<%= userResult._id %>"
+                                                                    class="name link">
+                                                                    <%= userResult.username %>
+                                                                </a>
+                                                            </p>
+                                                        </li>
+                                                    </ul>
+                                                    <% }else {%>
+                                                        <div class="custom-alert custom-alert-danger w-50 text-center">
+                                                            There
+                                                            are
+                                                            no
+                                                            users
+                                                            with this email<button class="close">&times;</button>
+                                                        </div>
+                                                        <% } %>
+                                                            <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="container text-center pt-2 pb-3 cards_landscape_wrap-2" style="background: inherit !important; ">
+            <h3>Online Friends</h3>
+            <br>
+            <div id="alert-danger" class="d-none custom-alert custom-alert-danger w-50">There are no online
+                friends
+                <button class="close">&times;</button>
+            </div>
+            <div id="online-friends"></div>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/sockets/init.js"></script>
+        <script src="/js/sockets/home.js"></script>
+        <%- include("parts/footer") %>

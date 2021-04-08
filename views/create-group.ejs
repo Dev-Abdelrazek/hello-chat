@@ -1,0 +1,59 @@
+<%- include('parts/header')%>
+    <%- include('parts/nav')%>
+        <div class="content-wrapper">
+            <div class="container">
+                <div class="row gutters">
+                    <div class="col-12">
+                        <div class="card m-0">
+                            <div class="row no-gutters">
+                                <div class="col-12">
+                                    <div class="users-container">
+                                        <div class="chat-search-box">
+                                            <form action="/groups/create" method="POST">
+                                                <div class="input-group">
+                                                    <input class="form-control form-search input-name" type="text"
+                                                        name="name" placeholder="Enter Group Name" required
+                                                        maxlength="100">
+                                                    <input type="hidden" name="users" value="<%= isUser %>">
+                                                </div>
+                                        </div>
+                                        <ul class="users">
+                                            <% for (let friend of friends) { %>
+                                                <li class="person">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            id="<%= friend.id %> " name="users"
+                                                            value="<%= friend.id %>">
+                                                        <label class="custom-control-label d-inline-block w-100"
+                                                            style="cursor: pointer;" for="<%= friend.id %> ">
+                                                            <div class="user">
+                                                                <a>
+                                                                    <img src="/imgs/avatar.png" alt="User image">
+                                                                </a>
+                                                            </div>
+                                                            <p class="name-time">
+                                                                <a class="name link">
+                                                                    <%= friend.name %>
+                                                                </a>
+                                                            </p>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                                <% } %>
+                                        </ul>
+                                        <div class="d-flex justify-content-center">
+                                            <input type="submit" value="Create" class="btn btn-primary mt-2">
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/sockets/init.js"></script>
+
+        <%- include('parts/footer') %>

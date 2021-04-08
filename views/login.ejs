@@ -1,0 +1,40 @@
+<%- include("parts/header") %>
+    <%- include("parts/nav") %>
+        <div class="container text-center">
+            <h3 class="mb-4">Login</h3>
+            <% if(acountCreated) {%>
+                <div class="alert alert-success w-50 d-inline-block">
+                    Account created successfully, You can log in now
+                </div>
+                <% } %>
+                    <form action="/login" method="POST">
+                        <input type="email" name="email" placeholder="Email" required autofocus
+                            class="form-control d-inline-block w-50 mb-2">
+                        <% let error=validationErrors.find(err=> err.param === "email") %>
+                            <% if(error) {%>
+                                <div class="custom-alert custom-alert-danger d-inline-block w-50">
+                                    <%= error.msg %>
+                                </div>
+                                <% } %>
+                                    <input type="password" name="password" placeholder="Password" required minlength="6"
+                                        class="form-control d-inline-block w-50 mb-2">
+                                    <% error=validationErrors.find(err=> err.param === "password") %>
+                                        <% if(error) {%>
+                                            <div class="custom-alert custom-alert-danger d-inline-block w-50">
+                                                <%= error.msg %>
+                                            </div>
+                                            <% } %>
+                                                <input type="submit" value="Log In"
+                                                    class="form-control d-inline-block w-50 mb-2 btn btn-primary">
+                    </form>
+                    <% if(loginError) {%>
+                        <div class="custom-alert custom-alert-danger d-inline-block w-50">
+                            <%= loginError %>
+                        </div>
+                        <% } %>
+                            <div class="my-2">
+                                Don't have account ? <a href="/signup"> Signup</a>
+                            </div>
+        </div>
+
+        <%- include("parts/footer") %>
