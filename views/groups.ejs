@@ -11,13 +11,12 @@
                     <div class="row justify-content-center">
                         <% for(let group of groups) {%>
                             <div class="col-8 col-sm-6 col-md-3 col-lg-3 my-3">
-                                <div class="card-flyer" onclick="location.href = '/groups/<%= group._id %>'"
-                                    style="margin:0">
+                                <div class="card-flyer" style="margin:0">
                                     <div class="text-box">
-                                        <div class="image-box">
+                                        <div class="image-box" onclick="location.href = '/groups/<%= group._id %>'">
                                             <img src="/imgs/default-group-image.png" alt="Group image" />
                                         </div>
-                                        <div class="text-container">
+                                        <div class="text-container" style="cursor:auto;">
                                             <h5>
                                                 <%= group.name %>
                                             </h5>
