@@ -62,6 +62,25 @@ exports.postLogin = (req, res) => {
   }
 };
 
+exports.getLoginByGoogle = async (req, res) => {
+  await authModel.googleLogin(
+    req.user.id,
+    req.user._json.given_name,
+    req.user._json.email,
+    ""
+  );
+  await authModel
+    .findGoogleUser(req.user.id)
+    .then((user) => {
+      req.session.userId = String(user._id);
+      req.session.name = user.username;
+    })
+    .then(() => {
+      res.redirect("/");
+    })
+    .catch((err) => console.log(err));
+};
+
 exports.logout = (req, res) => {
   req.session.destroy(() => {
     res.redirect("/login");

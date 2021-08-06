@@ -67,3 +67,51 @@ exports.login = (email, password) => {
       });
   });
 };
+exports.googleLogin = (id, username, email, password) => {
+  return new Promise((resolve, reject) => {
+    mongoose
+      .connect(DB_URL, connectOptions)
+      .then(() => {
+        return User.findOne({ googleId: id });
+      })
+      .then((user) => {
+        if (user) {
+          mongoose.disconnect();
+          resolve(user);
+        } else {
+          let newUser = new User({
+            username: username,
+            email: email,
+            googleId: id,
+            password: password,
+          });
+          newUser.save(() => {
+            mongoose.disconnect();
+            resolve();
+          });
+        }
+      })
+      .catch((err) => {
+        mongoose.disconnect();
+        reject(err);
+        console.log(err);
+      });
+  });
+};
+exports.findGoogleUser = (id) => {
+  return new Promise((resolve, reject) => {
+    mongoose
+      .connect(DB_URL, connectOptions)
+      .then(() => {
+        return User.findOne({ googleId: id });
+      })
+      .then((user) => {
+        mongoose.disconnect();
+        resolve(user);
+      })
+      .catch((err) => {
+        mongoose.disconnect();
+        reject(err);
+      });
+  });
+};

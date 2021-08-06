@@ -32,12 +32,13 @@
                                                         <li class="person"
                                                             onclick="location.href = '/profile/<%= userResult._id %>'">
                                                             <div class="user">
-                                                                <a>
+                                                                <a href="/profile/<%= userResult._id %>">
                                                                     <img src="/imgs/avatar.png" alt="user image">
                                                                 </a>
                                                             </div>
                                                             <p class="name-time">
-                                                                <a class="name link">
+                                                                <a href="/profile/<%= userResult._id %>"
+                                                                    class="name link">
                                                                     <%= userResult.username %>
                                                                 </a>
                                                             </p>

@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const bodyParser = require("body-parser").urlencoded({ extended: true });
+const passport = require("passport");
 
 const check = require("express-validator").check;
 const authController = require("../controllers/auth.controller");
@@ -53,6 +54,17 @@ router.post(
     .isLength({ min: 6 })
     .withMessage("Password must be at least 6 characters"),
   authController.postLogin
+);
+//Google Auth
+router.get(
+  "/google/login",
+  passport.authenticate("google", { scope: ["profile email"] })
+);
+
+router.get(
+  "/google",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  authController.getLoginByGoogle
 );
 
 router.post("/logout", authController.logout);

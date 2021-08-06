@@ -61,7 +61,7 @@ exports.deleteGroup = (id) => {
     mongoose
       .connect(DB_URL, connectOptions)
       .then(() => {
-        return Group.deleteOne({ _id: id });
+        return Group.findByIdAndDelete(id);
       })
       .then(() => {
         mongoose.disconnect();

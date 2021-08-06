@@ -22,6 +22,7 @@ const userSchema = mongoose.Schema({
     type: [{ name: String, id: String }],
     default: [],
   },
+  googleId: String,
 });
 const User = mongoose.model("user", userSchema);
 exports.User = User;

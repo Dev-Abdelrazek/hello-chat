@@ -524,12 +524,6 @@ textarea[name="msg-input"] {
   cursor: pointer;
   margin-right: 20px;
 }
-.end_call_btn {
-  position: absolute;
-  bottom: 2%;
-  display: block;
-  font-size: 1.5rem !important;
-}
 .msg_cotainer {
   margin-top: auto;
   margin-bottom: auto;
@@ -1244,42 +1238,31 @@ textarea[name="msg-input"] {
 
 /* Error Page */
 @media (max-width: 767px) {
-  /* Error Page */
   .error .clip .shadow {
     height: 100px;
-    /*Contrall*/
   }
 
   .error .clip:nth-of-type(2) .shadow {
     width: 80px;
-    /*Contrall play with javascript*/
   }
 
   .error .clip:nth-of-type(1) .shadow,
   .error .clip:nth-of-type(3) .shadow {
     width: 100px;
-    /*Contrall*/
   }
 
   .error .digit {
     width: 80px;
-    /*Contrall*/
     height: 80px;
-    /*Contrall*/
     line-height: 80px;
-    /*Contrall*/
     font-size: 52px;
   }
 
-  .error h2
-
-  /*Contrall*/ {
+  .error h2 {
     font-size: 24px;
   }
 
-  .error .msg
-
-  /*Contrall*/ {
+  .error .msg {
     top: -110px;
     left: 15%;
     width: 40px;
@@ -1288,9 +1271,7 @@ textarea[name="msg-input"] {
     font-size: 18px;
   }
 
-  .error span.triangle
-
-  /*Contrall*/ {
+  .error span.triangle {
     top: 70%;
     right: -3%;
     border-left: 10px solid #535353;
@@ -1303,3 +1284,124 @@ textarea[name="msg-input"] {
   }
 }
 /* Error Page */
+/* Google Btn */
+.google-link {
+  display: flex;
+  justify-content: center;
+}
+.google-link:hover {
+  text-decoration: none;
+}
+.abcRioButton {
+  border-radius: 1px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: background-color 0.218s, border-color 0.218s,
+    box-shadow 0.218s;
+  transition: background-color 0.218s, border-color 0.218s, box-shadow 0.218s;
+  -webkit-appearance: none;
+  background-color: #fff;
+  background-image: none;
+  color: #262626;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: auto;
+}
+
+.abcRioButton:hover {
+  box-shadow: 0 0 3px 3px rgba(66, 133, 244, 0.3);
+}
+
+.abcRioButtonBlue {
+  border: none;
+  color: #fff;
+}
+
+.abcRioButtonBlue,
+.abcRioButtonBlue:hover {
+  background-color: #007bff;
+}
+
+.abcRioButtonBlue:active {
+  background-color: #3367d6;
+}
+
+.abcRioButtonLightBlue {
+  background-color: #fff;
+  color: #757575;
+}
+
+.abcRioButtonLightBlue:active {
+  background-color: #eee;
+  color: #6d6d6d;
+}
+
+.abcRioButtonIcon {
+  float: left;
+}
+
+.abcRioButtonBlue .abcRioButtonIcon {
+  background-color: #fff;
+  border-radius: 1px;
+}
+
+.abcRioButtonSvg {
+  display: block;
+}
+
+.abcRioButtonContents {
+  font-family: Roboto, arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.21px;
+  margin-left: 6px;
+  margin-right: 6px;
+  vertical-align: top;
+}
+
+.abcRioButtonContentWrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.abcRioButtonBlue .abcRioButtonContentWrapper {
+  border: 1px solid transparent;
+}
+.parent-login-line {
+  display: flex;
+  justify-content: center;
+}
+
+.parent-login-line .login-line {
+  overflow: hidden;
+  text-align: center;
+  width: 50%;
+}
+
+.parent-login-line .login-line:before,
+.parent-login-line .login-line:after {
+  background-color: #b8c4c2;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 50%;
+}
+
+.parent-login-line .login-line:before {
+  right: 0.5em;
+  margin-left: -50%;
+}
+
+.parent-login-line .login-line:after {
+  left: 0.5em;
+  margin-right: -50%;
+}
+/* Google Btn */

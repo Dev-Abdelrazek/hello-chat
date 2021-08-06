@@ -92,15 +92,17 @@ exports.getGroup = (req, res) => {
 };
 exports.deleteGroup = (req, res) => {
   let groupId = req.body.groupId;
-  messagesModel
-    .deleteGroupMsgs(groupId)
+  groupModel
+    .deleteGroup(groupId)
     .then(() => {
-      groupModel.deleteGroup(groupId).then(() => {
-        res.redirect("/groups");
-      });
+      res.redirect("/groups");
     })
     .catch((err) => {
       res.redirect("/error");
       console.log(err);
     });
+  messagesModel.deleteGroupMsgs(groupId).catch((err) => {
+    res.redirect("/error");
+    console.log(err);
+  });
 };

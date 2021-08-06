@@ -1,10 +1,7 @@
 const chatId = document.getElementById("chat-id").value;
 const message = document.getElementById("message");
 const sendBtn = document.getElementById("sendBtn");
-const callBtn = document.getElementById("callBtn");
 const msgContainer = document.getElementById("message-container");
-const videoContainer = document.getElementById("videoContainer");
-const videoDiv = document.getElementById("videoDiv");
 
 socket.emit("joinChat", chatId);
 
@@ -30,46 +27,3 @@ socket.on("newMsg", (msg) => {
   </div>
 </div>`;
 });
-
-let peer = new Peer();
-let peerId = null;
-peer.on("open", (id) => {
-  peerId = id;
-});
-
-callBtn.onclick = () => {
-  socket.emit("requestPeerId", chatId);
-};
-
-socket.on("getPeerId", () => {
-  socket.emit("sendPeerId", {
-    chatId: chatId,
-    peerId: peerId,
-  });
-});
-
-socket.on("recievePeerId", (id) => {
-  navigator.mediaDevices
-    .getUserMedia({ audio: true, video: true })
-    .then((stream) => {
-      let call = peer.call(id, stream);
-      call.on("stream", showVideoCall);
-    })
-    .catch((err) => console.log(err));
-});
-peer.on("call", (call) => {
-  navigator.mediaDevices
-    .getUserMedia({ audio: true, video: true })
-    .then((stream) => {
-      call.answer(stream);
-      call.on("stream", showVideoCall);
-    })
-    .catch((err) => console.log(err));
-});
-
-const showVideoCall = (stream) => {
-  videoDiv.classList.remove("d-none");
-  videoDiv.classList.add("d-flex");
-  videoContainer.srcObject = stream;
-  videoContainer.play();
-};

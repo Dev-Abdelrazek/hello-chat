@@ -14,7 +14,7 @@ router.post(
     .isEmpty()
     .withMessage("Please enter an email to search")
     .isEmail()
-    .withMessage("Email is not vaild"),
+    .withMessage("Email is not valid"),
   homeController.postHome
 );
 

@@ -19,12 +19,14 @@
                                                     <li class="person"
                                                         onclick="location.href = '/chat/<%= friend.chatId %>'">
                                                         <div class="user">
-                                                            <img src="/imgs/avatar.png" alt="user image">
-                                                            <!-- <span class="status online"></span> -->
+                                                            <a href="/chat/<%= friend.chatId %>">
+                                                                <img src="/imgs/avatar.png" alt="user image">
+                                                                <!-- <span class="status online"></span> -->
+                                                            </a>
                                                             <!-- For offline <span class="status offline"></span> -->
                                                         </div>
                                                         <p class="name-time">
-                                                            <a class="name link">
+                                                            <a href="/chat/<%= friend.chatId %>" class="name link">
                                                                 <%= friend.name %>
                                                             </a>
                                                         </p>
