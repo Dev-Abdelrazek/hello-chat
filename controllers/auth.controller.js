@@ -7,9 +7,11 @@ exports.getSignup = (req, res) => {
     pageTitle: "Register",
     validationErrors: req.flash("validationErrors"),
     signupError: req.flash("signupError")[0],
+    inputSignupValues: req.flash("inputSignupValues")[0],
   });
 };
 exports.postSignup = (req, res) => {
+  req.flash("inputSignupValues", req.body);
   if (validationResult(req).isEmpty()) {
     authModel
       .createNewUser(req.body.username, req.body.email, req.body.password)
@@ -40,9 +42,11 @@ exports.getLogin = (req, res) => {
     acountCreated: false,
     loginError: req.flash("loginError")[0],
     validationErrors: req.flash("validationErrors"),
+    inputLoginValues: req.flash("inputLoginValues")[0],
   });
 };
 exports.postLogin = (req, res) => {
+  req.flash("inputLoginValues", req.body);
   if (validationResult(req).isEmpty()) {
     authModel
       .login(req.body.email, req.body.password)
@@ -57,6 +61,7 @@ exports.postLogin = (req, res) => {
         res.redirect("/login");
       });
   } else {
+    console.log(req.body);
     req.flash("validationErrors", validationResult(req).array());
     res.redirect("/login");
   }
