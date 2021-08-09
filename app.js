@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, "imgs")));
 app.set("view engine", "ejs");
 app.set("views", "views");
 
-//Facebook Auth
+//Google Auth
 
 app.use(passport.initialize());
 app.use(passport.session());
