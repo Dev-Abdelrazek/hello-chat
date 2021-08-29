@@ -1,5 +1,7 @@
 const alert = document.getElementById("alert-danger");
+
 socket.emit("getOnlineFriends", myId);
+
 socket.on("onlineFriends", (onlineFriends) => {
   let div = document.getElementById("online-friends");
   if (onlineFriends.length === 0) {

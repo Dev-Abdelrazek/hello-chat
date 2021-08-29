@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const User = require("./user.model").User;
 
-const DB_URL =
-  "mongodb+srv://abdelrazek:abdelrazek@cluster0.qcugc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const DB_URL = process.env.DB_URL;
 const connectOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
 exports.createNewUser = (username, email, password) => {

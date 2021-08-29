@@ -90,6 +90,7 @@ exports.getGroup = (req, res) => {
       console.log(err);
     });
 };
+
 exports.deleteGroup = (req, res) => {
   let groupId = req.body.groupId;
   groupModel

@@ -5,9 +5,9 @@ const path = require("path");
 const flash = require("connect-flash");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const dotenv = require("dotenv").config();
 
 const userModel = require("./models/user.model");
-const authModel = require("./models/auth.model");
 
 const socketIO = require("socket.io");
 const io = socketIO(server);
@@ -26,7 +26,6 @@ const msgsRouter = require("./routes/messages.route");
 const groupRouter = require("./routes/group.route");
 
 app.use(express.static(path.join(__dirname, "assets")));
-app.use(express.static(path.join(__dirname, "imgs")));
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -35,9 +34,8 @@ app.set("views", "views");
 
 app.use(passport.initialize());
 app.use(passport.session());
-const GOOGLE_CLIENT_ID =
-  "542400253149-9vg6dors6pqf4a2onflf9lov2p8ac6vn.apps.googleusercontent.com";
-const GOOGLE_CLIENT_SECRET = "NTbAjLwMLJSC85_0IyZiZ_jR";
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 passport.use(
   new GoogleStrategy(
     {
@@ -60,7 +58,7 @@ passport.deserializeUser((user, cb) => {
 const session = require("express-session");
 const SessionStore = require("connect-mongodb-session")(session);
 const Store = new SessionStore({
-  uri: "mongodb+srv://abdelrazek:abdelrazek@cluster0.qcugc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  uri: process.env.DB_URL,
   collection: "sessions",
 });
 app.use(

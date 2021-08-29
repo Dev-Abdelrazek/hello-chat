@@ -16,6 +16,7 @@ addBtn.onclick = (e) => {
     friendImg, // myId equals myId:myId "Es6"
   });
 };
+
 socket.on("requestSent", () => {
   addBtn.remove();
   document.getElementById(

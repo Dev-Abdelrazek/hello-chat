@@ -15,6 +15,7 @@ sendBtn.onclick = () => {
     }
   );
 };
+
 socket.on("newMsg", (msg) => {
   msgContainer.innerHTML += `<div class="d-flex ${
     msg.sender === myId ? "justify-content-end" : " justify-content-start"

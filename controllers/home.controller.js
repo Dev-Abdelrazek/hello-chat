@@ -10,6 +10,7 @@ exports.getHome = (req, res) => {
     pageTitle: "Home",
   });
 };
+
 exports.postHome = (req, res) => {
   if (validationResult(req).isEmpty()) {
     let email = req.body.email;

@@ -1,5 +1,6 @@
 const validationResult = require("express-validator").validationResult;
 const authModel = require("../models/auth.model");
+
 exports.getSignup = (req, res) => {
   res.render("signup", {
     isUser: false,
@@ -10,6 +11,7 @@ exports.getSignup = (req, res) => {
     inputSignupValues: req.flash("inputSignupValues")[0],
   });
 };
+
 exports.postSignup = (req, res) => {
   req.flash("inputSignupValues", req.body);
   if (validationResult(req).isEmpty()) {
@@ -34,6 +36,7 @@ exports.postSignup = (req, res) => {
     res.redirect("/signup");
   }
 };
+
 exports.getLogin = (req, res) => {
   res.render("login", {
     isUser: false,
@@ -45,6 +48,7 @@ exports.getLogin = (req, res) => {
     inputLoginValues: req.flash("inputLoginValues")[0],
   });
 };
+
 exports.postLogin = (req, res) => {
   req.flash("inputLoginValues", req.body);
   if (validationResult(req).isEmpty()) {

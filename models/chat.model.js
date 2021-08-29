@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-const DB_URL =
-  "mongodb+srv://abdelrazek:abdelrazek@cluster0.qcugc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const DB_URL = process.env.DB_URL;
 const connectOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
 const chatSchema = mongoose.Schema({
