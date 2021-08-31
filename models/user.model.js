@@ -86,6 +86,7 @@ exports.cancelFriendRequest = async (data) => {
     throw new Error(err);
   }
 };
+
 exports.acceptFriendRequest = async (data) => {
   try {
     await mongoose.connect(DB_URL, connectOptions);
@@ -139,6 +140,7 @@ exports.acceptFriendRequest = async (data) => {
     throw new Error(err);
   }
 };
+
 exports.rejectFriendRequest = async (data) => {
   try {
     await mongoose.connect(DB_URL, connectOptions);
@@ -159,6 +161,7 @@ exports.rejectFriendRequest = async (data) => {
     throw new Error(err);
   }
 };
+
 exports.deleteFriend = async (data) => {
   try {
     await mongoose.connect(DB_URL, connectOptions);
@@ -192,25 +195,6 @@ exports.getFriendRequests = async (id) => {
   }
 };
 
-// exports.getFriendRequests = (id) => {
-//   return new Promise((resolve, reject) => {
-//     mongoose
-//       .connect(DB_URL, connectOptions)
-//       .then(() => {
-//         let data = User.findById(id, { friendRequests: true });
-//         return data.friendRequests;
-//       })
-//       .then((result) => {
-//         mongoose.disconnect();
-//         resolve(result);
-//       })
-//       .catch((err) => {
-//         mongoose.disconnect();
-//         reject(err);
-//       });
-//   });
-// };
-
 exports.getFriends = (id) => {
   return new Promise((resolve, reject) => {
     mongoose
@@ -228,6 +212,7 @@ exports.getFriends = (id) => {
       });
   });
 };
+
 exports.getUserByEmail = (email) => {
   return new Promise((resolve, reject) => {
     mongoose

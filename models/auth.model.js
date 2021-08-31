@@ -37,6 +37,7 @@ exports.createNewUser = (username, email, password) => {
       });
   });
 };
+
 exports.login = (email, password) => {
   return new Promise((resolve, reject) => {
     mongoose
@@ -66,6 +67,7 @@ exports.login = (email, password) => {
       });
   });
 };
+
 exports.googleLogin = (id, username, email, password) => {
   return new Promise((resolve, reject) => {
     mongoose
@@ -97,6 +99,7 @@ exports.googleLogin = (id, username, email, password) => {
       });
   });
 };
+
 exports.findGoogleUser = (id) => {
   return new Promise((resolve, reject) => {
     mongoose

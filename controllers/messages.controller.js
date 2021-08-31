@@ -14,19 +14,9 @@ exports.getMsgs = (req, res) => {
       let lastmsgs = async (ids) => {
         let msgs = [];
         for (let j = 0; j < ids.length; j++) {
-          try {
-            await messageModel
-              .getLastMsg(ids[j])
-              .then((msg) => {
-                msgs.push(msg);
-              })
-              .catch((err) => {
-                res.redirect("/error");
-                console.log(err);
-              });
-          } catch (err) {
-            throw new Error(err);
-          }
+          await messageModel.getLastMsg(ids[j]).then((msg) => {
+            msgs.push(msg);
+          });
         }
         return msgs;
       };
