@@ -32,15 +32,10 @@
                                                         <li class="person"
                                                             onclick="location.href = '/profile/<%= userResult._id %>'">
                                                             <div class="user">
-                                                                <a href="/profile/<%= userResult._id %>">
-                                                                    <img src="/imgs/avatar.png" alt="user image">
-                                                                </a>
+                                                                <img src="/imgs/avatar.png" alt="user image">
                                                             </div>
-                                                            <p class="name-time">
-                                                                <a href="/profile/<%= userResult._id %>"
-                                                                    class="name link">
-                                                                    <%= userResult.username %>
-                                                                </a>
+                                                            <p class="name-time name pro-link">
+                                                                <%= userResult.username %>
                                                             </p>
                                                         </li>
                                                     </ul>

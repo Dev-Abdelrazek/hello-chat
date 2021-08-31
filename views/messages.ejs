@@ -19,16 +19,12 @@
                                                     <li class="person"
                                                         onclick="location.href = '/chat/<%= friend.chatId %>'">
                                                         <div class="user">
-                                                            <a href="/chat/<%= friend.chatId %>">
-                                                                <img src="/imgs/avatar.png" alt="user image">
-                                                                <!-- <span class="status online"></span> -->
-                                                            </a>
+                                                            <img src="/imgs/avatar.png" alt="user image">
+                                                            <!-- <span class="status online"></span> -->
                                                             <!-- For offline <span class="status offline"></span> -->
                                                         </div>
-                                                        <p class="name-time">
-                                                            <a href="/chat/<%= friend.chatId %>" class="name link">
-                                                                <%= friend.name %>
-                                                            </a>
+                                                        <p class="name-time pro-link">
+                                                            <%= friend.name %>
                                                         </p>
                                                         <% for (let msg of msgs) {%>
                                                             <% if(friend.chatId==msg.chat._id) {%>
@@ -38,8 +34,7 @@
                                                                             <% }else {%>
                                                                                 <%= msg.content %>
                                                                                     <% } %>
-                                                                                        <a href="/chat/<%= friend.chatId %>"
-                                                                                            class="time link">
+                                                                                        <span class="time link">
                                                                                             <%= moment
                                                                                                 .unix(msg.timestamp/1000)
                                                                                                 .format(`h:mm A,`) %>
@@ -55,7 +50,7 @@
                                                                                                     ,
                                                                                                     sameElse: 'DD/MM/YYYY'
                                                                                                     }); %>
-                                                                                        </a>
+                                                                                        </span>
                                                                 </div>
                                                                 <% } %>
                                                                     <% } %>
