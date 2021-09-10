@@ -45,12 +45,10 @@ exports.getLogin = (req, res) => {
     acountCreated: false,
     loginError: req.flash("loginError")[0],
     validationErrors: req.flash("validationErrors"),
-    inputLoginValues: req.flash("inputLoginValues")[0],
   });
 };
 
 exports.postLogin = (req, res) => {
-  req.flash("inputLoginValues", req.body);
   if (validationResult(req).isEmpty()) {
     authModel
       .login(req.body.email, req.body.password)
@@ -65,7 +63,6 @@ exports.postLogin = (req, res) => {
         res.redirect("/login");
       });
   } else {
-    console.log(req.body);
     req.flash("validationErrors", validationResult(req).array());
     res.redirect("/login");
   }
