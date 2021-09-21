@@ -7,6 +7,7 @@ socket.emit("joinChat", chatId);
 
 sendBtn.onclick = () => {
   let content = message.value;
+
   socket.emit(
     "sendMsg",
     { chat: chatId, content: content, sender: myId },

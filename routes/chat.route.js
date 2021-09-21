@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const chatController = require("../controllers/chat.controller");
-const authGuard = require("../routes/guards/auth.guard");
+const { isNotUser } = require("../routes/guards/auth.guard");
 
-router.get("/:id", authGuard.isNotUser, chatController.getChat);
+router.get("/:id", isNotUser, chatController.getChat);
 
 module.exports = router;

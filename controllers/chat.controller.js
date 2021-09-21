@@ -3,19 +3,20 @@ const chatModel = require("../models/chat.model");
 const moment = require("moment");
 
 exports.getChat = (req, res, next) => {
-  let chatId = req.params.id;
+  let chatId = req.params.id,
+    { userId, name } = req.session;
+
+  // Get friend messages and his data
   messageModel
     .getMessages(chatId)
     .then((messages) => {
       chatModel
         .getChat(chatId)
         .then((chat) => {
-          let friendData = chat.users.find(
-            (user) => user._id != req.session.userId
-          );
+          let friendData = chat.users.find((user) => user._id != userId);
           res.render("chat", {
-            isUser: req.session.userId,
-            profileName: req.session.name,
+            isUser: userId,
+            profileName: name,
             friendRequests: req.friendRequests,
             pageTitle: friendData.username,
             friendData: friendData,
@@ -30,7 +31,7 @@ exports.getChat = (req, res, next) => {
         });
     })
     .catch((err) => {
-      res.redirect("/notFound");
+      res.redirect("/error");
       console.log(err);
     });
 };

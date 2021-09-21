@@ -7,8 +7,10 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const dotenv = require("dotenv").config();
 
+// Import user model
 const userModel = require("./models/user.model");
 
+// Socket
 const socketIO = require("socket.io");
 const io = socketIO(server);
 require("./sockets/friend.socket")(io);
@@ -17,6 +19,7 @@ require("./sockets/chat.socket")(io);
 require("./sockets/group.socket")(io);
 io.onlineFriends = {};
 
+// Import Routes
 const authRouter = require("./routes/auth.route");
 const homeRouter = require("./routes/home.route");
 const profileRouter = require("./routes/profile.route");
@@ -25,13 +28,14 @@ const chatRouter = require("./routes/chat.route");
 const msgsRouter = require("./routes/messages.route");
 const groupRouter = require("./routes/group.route");
 
+// Set static path to assets
 app.use(express.static(path.join(__dirname, "assets")));
 
+// Set view engine to ejs
 app.set("view engine", "ejs");
 app.set("views", "views");
 
 //Google Auth
-
 app.use(passport.initialize());
 app.use(passport.session());
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
@@ -55,6 +59,7 @@ passport.deserializeUser((user, cb) => {
   cb(null, user);
 });
 
+// Session setup
 const session = require("express-session");
 const SessionStore = require("connect-mongodb-session")(session);
 const Store = new SessionStore({
@@ -70,10 +75,13 @@ app.use(
   })
 );
 
+// Set flash to path errors between reqs
 app.use(flash());
 
+// Middleware to store friend requests in every app req
 app.use((req, res, next) => {
   let id = req.session.userId;
+
   if (id) {
     userModel
       .getFriendRequests(id)
@@ -82,7 +90,7 @@ app.use((req, res, next) => {
         next();
       })
       .catch((err) => {
-        // res.redirect("/error");
+        res.redirect("/error");
         console.log(err);
       });
   } else {
@@ -90,6 +98,7 @@ app.use((req, res, next) => {
   }
 });
 
+// Routes Middlewares
 app.use(homeRouter);
 app.use(authRouter);
 app.use("/profile", profileRouter);
@@ -106,7 +115,6 @@ app.get("/error", (req, res, next) => {
     pageTitle: "Error",
   });
 });
-
 app.use((req, res) => {
   res.status(404);
   res.render("notFound", {

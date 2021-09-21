@@ -3,6 +3,7 @@ module.exports = (io) => {
     socket.on("notificationsRoom", (id) => {
       socket.join(id);
     });
+
     socket.on("goOnline", (id) => {
       io.onlineFriends[id] = true;
       socket.on("disconnect", () => {

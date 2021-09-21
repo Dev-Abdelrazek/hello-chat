@@ -15,6 +15,7 @@ module.exports = (io) => {
           socket.emit("requestFaild");
         });
     });
+
     socket.on("getOnlineFriends", (id) => {
       getFriends(id)
         .then((friends) => {

@@ -23,8 +23,11 @@ const userSchema = mongoose.Schema({
   },
   googleId: String,
 });
+
 const User = mongoose.model("user", userSchema);
+
 exports.User = User;
+
 exports.getUserById = (id) => {
   return new Promise((resolve, reject) => {
     mongoose

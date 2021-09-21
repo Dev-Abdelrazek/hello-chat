@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const msgsController = require("../controllers/messages.controller");
-const authGuard = require("../routes/guards/auth.guard");
+const { isNotUser } = require("../routes/guards/auth.guard");
 
-router.get("/", authGuard.isNotUser, msgsController.getMsgs);
+router.get("/", isNotUser, msgsController.getMsgs);
 
 module.exports = router;

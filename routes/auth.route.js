@@ -4,13 +4,13 @@ const passport = require("passport");
 
 const check = require("express-validator").check;
 const authController = require("../controllers/auth.controller");
-const authGuard = require("../routes/guards/auth.guard");
+const { isUser } = require("../routes/guards/auth.guard");
 
-router.get("/signup", authGuard.isUser, authController.getSignup);
+router.get("/signup", isUser, authController.getSignup);
 
 router.post(
   "/signup",
-  authGuard.isUser,
+  isUser,
   bodyParser,
   check("username")
     .not()
@@ -36,10 +36,12 @@ router.post(
   }),
   authController.postSignup
 );
-router.get("/login", authGuard.isUser, authController.getLogin);
+
+router.get("/login", isUser, authController.getLogin);
+
 router.post(
   "/login",
-  authGuard.isUser,
+  isUser,
   bodyParser,
   check("email")
     .not()
@@ -55,6 +57,7 @@ router.post(
     .withMessage("Password must be at least 6 characters"),
   authController.postLogin
 );
+
 //Google Auth
 router.get(
   "/google/login",

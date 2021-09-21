@@ -1,10 +1,13 @@
 const userModel = require("../models/user.model");
 
+// Accept friend request
 exports.accept = (req, res) => {
+  let { friendId } = req.body;
+
   userModel
     .acceptFriendRequest(req.body)
     .then(() => {
-      res.redirect("/profile/" + req.body.friendId);
+      res.redirect(`/profile/${friendId}`);
     })
     .catch((err) => {
       res.redirect("/error");
@@ -12,11 +15,14 @@ exports.accept = (req, res) => {
     });
 };
 
+// Cancel friend request
 exports.cancel = (req, res) => {
+  let { friendId } = req.body;
+
   userModel
     .cancelFriendRequest(req.body)
     .then(() => {
-      res.redirect("/profile/" + req.body.friendId);
+      res.redirect(`/profile/${friendId}`);
     })
     .catch((err) => {
       res.redirect("/error");
@@ -24,11 +30,14 @@ exports.cancel = (req, res) => {
     });
 };
 
+// Reject friend request
 exports.reject = (req, res) => {
+  let { friendId } = req.body;
+
   userModel
     .rejectFriendRequest(req.body)
     .then(() => {
-      res.redirect("/profile/" + req.body.friendId);
+      res.redirect(`/profile/${friendId}`);
     })
     .catch((err) => {
       res.redirect("/error");
@@ -36,11 +45,14 @@ exports.reject = (req, res) => {
     });
 };
 
+// Delete friend request
 exports.delete = (req, res) => {
+  let { friendId } = req.body;
+
   userModel
     .deleteFriend(req.body)
     .then(() => {
-      res.redirect("/profile/" + req.body.friendId);
+      res.redirect(`/profile/${friendId}`);
     })
     .catch((err) => {
       res.redirect("/error");
@@ -48,14 +60,17 @@ exports.delete = (req, res) => {
     });
 };
 
+// Get all user friends
 exports.getAllFriends = (req, res) => {
-  let id = req.session.userId;
+  let id = req.session.userId,
+    { userId, name } = req.session;
+
   userModel
     .getFriends(id)
     .then((friends) => {
       res.render("friends", {
-        isUser: req.session.userId,
-        profileName: req.session.name,
+        isUser: userId,
+        profileName: name,
         friendRequests: req.friendRequests,
         pageTitle: "Friends",
         friends: friends.friends,

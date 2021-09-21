@@ -3,7 +3,7 @@
         <div class="container text-center">
             <h3 class="mb-4">Signup</h3>
             <form action="/signup" method="POST">
-                <input type="text" name="username" placeholder="Username" required autofocus minlength="2"
+                <input type="text" name="username" placeholder="Username" required minlength="2"
                     class="form-control d-inline-block w-50 mb-2" value=<%=inputSignupValues ?
                     inputSignupValues.username :""%> >
                 <% let error=validationErrors.find(err=> err.param ==='username')%>

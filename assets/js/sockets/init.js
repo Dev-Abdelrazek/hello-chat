@@ -2,6 +2,8 @@ const socket = io();
 const addBtn = document.getElementById("addBtn");
 const dropBtn = document.getElementById("friendRequestsDropdown");
 const reqsNumber = document.getElementById("requestsNumber");
+
+// Get username and id
 let myId = document.getElementById("userId").value;
 let username = document.getElementById("username").value;
 

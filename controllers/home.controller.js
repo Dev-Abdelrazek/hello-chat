@@ -2,9 +2,11 @@ const userModel = require("../models/user.model");
 const validationResult = require("express-validator").validationResult;
 
 exports.getHome = (req, res) => {
+  let { userId, name } = req.session;
+
   res.render("index", {
-    isUser: req.session.userId,
-    profileName: req.session.name,
+    isUser: userId,
+    profileName: name,
     searchError: req.flash("searchError")[0],
     friendRequests: req.friendRequests,
     pageTitle: "Home",
@@ -12,6 +14,8 @@ exports.getHome = (req, res) => {
 };
 
 exports.postHome = (req, res) => {
+  let { userId, name } = req.session;
+
   if (validationResult(req).isEmpty()) {
     let email = req.body.email;
     if (typeof email !== "undefined") {
@@ -19,8 +23,8 @@ exports.postHome = (req, res) => {
         .getUserByEmail(email)
         .then((user) => {
           res.render("index", {
-            isUser: req.session.userId,
-            profileName: req.session.name,
+            isUser: userId,
+            profileName: name,
             searchError: req.flash("searchError")[0],
             friendRequests: req.friendRequests,
             pageTitle: "Home",
@@ -33,8 +37,8 @@ exports.postHome = (req, res) => {
         });
     } else {
       res.render("index", {
-        isUser: req.session.userId,
-        profileName: req.session.name,
+        isUser: userId,
+        profileName: name,
         searchError: req.flash("searchError")[0],
         friendRequests: req.friendRequests,
         pageTitle: "Home",

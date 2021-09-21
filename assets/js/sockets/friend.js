@@ -8,16 +8,17 @@ addBtn.onclick = (e) => {
   // e >> event object
   e.preventDefault();
   socket.emit("sendFriendRequest", {
-    myId,
+    myId, // myId === myId:myId "Es6"
     myName,
     myImg,
     friendId,
     friendName,
-    friendImg, // myId equals myId:myId "Es6"
+    friendImg,
   });
 };
 
 socket.on("requestSent", () => {
+  // Replace add button with cancel request button
   addBtn.remove();
   document.getElementById(
     "friends-form"

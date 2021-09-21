@@ -88,7 +88,7 @@ exports.googleLogin = (id, username, email, password) => {
           });
           newUser.save(() => {
             mongoose.disconnect();
-            resolve();
+            resolve(newUser);
           });
         }
       })
@@ -96,24 +96,6 @@ exports.googleLogin = (id, username, email, password) => {
         mongoose.disconnect();
         reject(err);
         console.log(err);
-      });
-  });
-};
-
-exports.findGoogleUser = (id) => {
-  return new Promise((resolve, reject) => {
-    mongoose
-      .connect(DB_URL, connectOptions)
-      .then(() => {
-        return User.findOne({ googleId: id });
-      })
-      .then((user) => {
-        mongoose.disconnect();
-        resolve(user);
-      })
-      .catch((err) => {
-        mongoose.disconnect();
-        reject(err);
       });
   });
 };

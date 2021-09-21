@@ -4,13 +4,18 @@ const moment = require("moment");
 
 exports.getMsgs = (req, res) => {
   let id = req.session.userId;
+
+  // Get user friends
   userModel
     .getFriends(id)
     .then((friends) => {
+      // Make an array from chat ids
       let chatIds = [];
       for (let i = 0; i < friends.friends.length; i++) {
         chatIds.push(friends.friends[i].chatId);
       }
+
+      // Function to get last message from every chat
       let lastmsgs = async (ids) => {
         let msgs = [];
         for (let j = 0; j < ids.length; j++) {
@@ -20,6 +25,7 @@ exports.getMsgs = (req, res) => {
         }
         return msgs;
       };
+      // Render last messages
       lastmsgs(chatIds).then((msgs) => {
         res.render("messages", {
           isUser: req.session.userId,

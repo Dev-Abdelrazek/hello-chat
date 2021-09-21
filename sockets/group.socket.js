@@ -5,6 +5,7 @@ module.exports = (io) => {
     socket.on("joinGroup", (chatId) => {
       socket.join(chatId);
     });
+
     socket.on("sendGroupMessage", (msg, cb) => {
       newMessage(msg).then(() => {
         io.to(msg.group).emit("newGroupMessage", msg);

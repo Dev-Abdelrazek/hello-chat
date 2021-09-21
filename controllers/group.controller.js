@@ -1,16 +1,18 @@
 const groupModel = require("../models/group.model");
 const messagesModel = require("../models/group-message.model");
-const getFriends = require("../models/user.model").getFriends;
+const { getFriends } = require("../models/user.model");
 const moment = require("moment");
 
 exports.getUserGroups = (req, res) => {
+  let { userId, name } = req.session;
+
   groupModel
-    .getUserGroups(req.session.userId)
+    .getUserGroups(userId)
     .then((groups) => {
       res.render("groups", {
         pageTitle: "Groups",
-        isUser: req.session.userId,
-        profileName: req.session.name,
+        isUser: userId,
+        profileName: name,
         friendRequests: req.friendRequests,
         groups: groups,
       });
@@ -22,12 +24,14 @@ exports.getUserGroups = (req, res) => {
 };
 
 exports.getCreateGroup = (req, res) => {
+  let { userId, name } = req.session;
+
   getFriends(req.session.userId)
     .then((friends) => {
       res.render("create-group", {
         pageTitle: "Create Group",
-        isUser: req.session.userId,
-        profileName: req.session.name,
+        isUser: userId,
+        profileName: name,
         friendRequests: req.friendRequests,
         friends: friends.friends,
       });
@@ -42,7 +46,7 @@ exports.postCreateGroup = (req, res) => {
   groupModel
     .createGroup(req.body)
     .then((id) => {
-      res.redirect("/groups/" + id);
+      res.redirect(`/groups/${id}`);
     })
     .catch((err) => {
       res.redirect("/error");
@@ -51,7 +55,9 @@ exports.postCreateGroup = (req, res) => {
 };
 
 exports.getGroup = (req, res) => {
-  let chatId = req.params.id;
+  let chatId = req.params.id,
+    { userId, name } = req.session;
+
   messagesModel
     .getMessages(chatId)
     .then((messages) => {
@@ -61,8 +67,8 @@ exports.getGroup = (req, res) => {
           .then((data) => {
             res.render("group-chat", {
               pageTitle: data.name,
-              isUser: req.session.userId,
-              profileName: req.session.name,
+              isUser: userId,
+              profileName: name,
               friendRequests: req.friendRequests,
               messages: messages,
               group: data,
@@ -76,8 +82,8 @@ exports.getGroup = (req, res) => {
       } else {
         res.render("group-chat", {
           pageTitle: messages[0].group.name,
-          isUser: req.session.userId,
-          profileName: req.session.name,
+          isUser: userId,
+          profileName: name,
           friendRequests: req.friendRequests,
           messages: messages,
           group: messages[0].group,

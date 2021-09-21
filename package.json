@@ -1,11 +1,11 @@
 {
   "name": "hellochat",
   "version": "1.0.0",
-  "description": "Simple online chat",
+  "description": "Online chat",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\""
   },
   "author": "Abdelrazek",
   "license": "ISC",
@@ -21,8 +21,6 @@
     "express-validator": "^6.9.2",
     "flash": "^1.1.0",
     "moment": "^2.29.1",
-    "mongo-sanitize": "^1.1.0",
-    "mongodb": "^3.6.5",
     "mongoose": "^5.12.3",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",

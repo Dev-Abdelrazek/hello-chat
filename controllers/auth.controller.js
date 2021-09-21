@@ -13,10 +13,14 @@ exports.getSignup = (req, res) => {
 };
 
 exports.postSignup = (req, res) => {
+  let { username, email, password } = req.body;
+
+  // send inputs values again if there is an error
   req.flash("inputSignupValues", req.body);
+  // Check if no errors
   if (validationResult(req).isEmpty()) {
     authModel
-      .createNewUser(req.body.username, req.body.email, req.body.password)
+      .createNewUser(username, email, password)
       .then(() => {
         res.render("login", {
           isUser: false,
@@ -68,15 +72,15 @@ exports.postLogin = (req, res) => {
   }
 };
 
-exports.getLoginByGoogle = async (req, res) => {
-  await authModel.googleLogin(
-    req.user.id,
-    req.user._json.given_name,
-    req.user._json.email,
-    ""
-  );
-  await authModel
-    .findGoogleUser(req.user.id)
+exports.getLoginByGoogle = (req, res) => {
+  // Get userdata from google api and login
+  authModel
+    .googleLogin(
+      req.user.id,
+      req.user._json.given_name,
+      req.user._json.email,
+      ""
+    )
     .then((user) => {
       req.session.userId = String(user._id);
       req.session.name = user.username;
@@ -84,7 +88,10 @@ exports.getLoginByGoogle = async (req, res) => {
     .then(() => {
       res.redirect("/");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      res.redirect("/error");
+      console.log(err);
+    });
 };
 
 exports.logout = (req, res) => {

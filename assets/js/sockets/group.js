@@ -16,6 +16,7 @@ sendBtn.onclick = () => {
       senderName: username,
     },
     () => {
+      // Reset message input after sent
       msg.value = "";
     }
   );
