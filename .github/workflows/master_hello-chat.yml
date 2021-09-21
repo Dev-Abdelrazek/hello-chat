@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'hello-chat'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_30C7B91F32EF4E2B8B264492B10AF091 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_181E040468994DECAC49C2D4C9DAB235 }}
           package: .
