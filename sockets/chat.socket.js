@@ -17,6 +17,9 @@ module.exports = (io) => {
     socket.on("requestPeerId", (chatId) => {
       socket.broadcast.to(chatId).emit("getPeerId");
     });
+    socket.on("checkOnline", () => {
+      socket.emit("onlineFriends", { onlineFriends: io.onlineFriends });
+    });
 
     socket.on("sendPeerId", (data) => {
       socket.broadcast.to(data.chatId).emit("recievePeerId", data.peerId);

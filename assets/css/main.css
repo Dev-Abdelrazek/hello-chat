@@ -26,10 +26,20 @@ html {
 .p-t-05 {
   padding-top: 0.5%;
 }
+.w-40 {
+  width: 40% !important;
+}
 @media (max-width: 992px) {
-  .w-50 {
+  .w-50,
+  .w-40 {
     width: 100% !important;
   }
+}
+.bg-red {
+  background-color: #e74c34;
+}
+.bg-green {
+  background-color: #4cd137 !important;
 }
 /* Alert */
 .custom-alert {
@@ -444,7 +454,6 @@ textarea[name="msg-input"] {
   position: absolute;
   height: 15px;
   width: 15px;
-  background-color: #4cd137;
   border-radius: 50%;
   bottom: 0.2em;
   right: 0.4em;

@@ -1,12 +1,28 @@
-const chatId = document.getElementById("chat-id").value;
 const message = document.getElementById("message");
 const sendBtn = document.getElementById("sendBtn");
 const callBtn = document.getElementById("callBtn");
 const videoDiv = document.getElementById("videoDiv");
+const onlineIcon = document.getElementById("onlineIcon");
+const alertDanger = document.getElementById("alertDanger");
+const chatId = document.getElementById("chat-id").value;
+const friendId = document.getElementById("friendId").value;
 const msgContainer = document.getElementById("message-container");
 const videoContainer = document.getElementById("videoContainer");
 
+// Join users to chat room
 socket.emit("joinChat", chatId);
+
+// Check friend is online or not
+socket.emit("checkOnline");
+socket.on("onlineFriends", (data) => {
+  // Convert object to array
+  const onlineFriends = Object.entries(data.onlineFriends);
+  const onlineFriend = onlineFriends.filter(([key, value]) => {
+    return key === friendId && value === true;
+  });
+
+  if (onlineFriend.length !== 0) onlineIcon.classList.add("bg-green");
+});
 
 sendBtn.onclick = () => {
   let content = message.value;
@@ -41,7 +57,22 @@ peer.on("open", (id) => {
 });
 
 callBtn.onclick = () => {
-  socket.emit("requestPeerId", chatId);
+  socket.emit("checkOnline");
+  socket.on("onlineFriends", (data) => {
+    // Convert object to array
+    const onlineFriends = Object.entries(data.onlineFriends);
+    const onlineFriend = onlineFriends.filter(([key, value]) => {
+      return key === friendId && value === true;
+    });
+
+    // Check if friend online or not
+    if (onlineFriend.length === 0) alertDanger.classList.remove("d-none");
+    else {
+      onlineIcon.classList.add("bg-green");
+      alertDanger.classList.add("d-none");
+      socket.emit("requestPeerId", chatId);
+    }
+  });
 };
 
 socket.on("getPeerId", () => {

@@ -2,6 +2,10 @@
     <%- include("parts/nav") %>
         <div class="container-fluid">
             <input id="chat-id" type="hidden" value="<%= chatId %>">
+            <input id="friendId" type="hidden" name="friendId" value="<%= friendData.id %>">
+            <div id="alertDanger" class="d-none custom-alert custom-alert-danger w-40 text-center">
+                Your friend is not online, ask him to be online and try again<button class="close">&times;</button>
+            </div>
             <div class="row justify-content-center h-100">
                 <div class="col-md-8 col-xl-6 chat">
                     <div class="card card-chat">
@@ -11,7 +15,7 @@
                                     <a href="/profile/<%= friendData.id %>">
                                         <img src="/imgs/<%= friendData.img %>" class="rounded-circle user_img">
                                     </a>
-                                    <!-- <span class="online_icon"></span> -->
+                                    <span id="onlineIcon" class="online_icon bg-red"></span>
                                 </div>
                                 <div class="user_info">
                                     <span>
