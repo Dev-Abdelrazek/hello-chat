@@ -409,6 +409,12 @@ textarea[name="msg-input"] {
 
   cursor: pointer;
 }
+.end_call_btn {
+  position: absolute;
+  bottom: 2%;
+  display: block;
+  font-size: 1.5rem !important;
+}
 .send_btn {
   border-radius: 0 15px 15px 0 !important;
   border: 0 !important;
