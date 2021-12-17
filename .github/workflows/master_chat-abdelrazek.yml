@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'chat-abdelrazek'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_22FA4F84AD464BFB9052DE3961904C79 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FC7464A015624E2B9BF25AC3E2982568 }}
           package: .
